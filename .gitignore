@@ -1,0 +1,7 @@
+sources/
+images/
+firectl
+firecracker
+jailer
+*.log
+*.old
