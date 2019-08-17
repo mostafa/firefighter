@@ -6,6 +6,8 @@ command_usage () {
 	echo "Usage:"
 	echo "${script} start <distro-name> | <vmlinuz.bin> <rootfs.ext4>"
 	echo "${script} stop"
+	echo "${script} config"
+	echo "${script} status"
 	echo
 	echo "Available distros:"
 	echo " - debian"
@@ -16,6 +18,9 @@ _start () {
 	# command parameters
 	kernel=$1
 	rootfs=$2
+
+	echo "Giving read/write access to KVM to ${USER}"
+	sudo setfacl -m u:${USER}:rw /dev/kvm
 
 	if [ -z $1 ]
 	then
@@ -100,6 +105,16 @@ _stop () {
 	fi
 }
 
+_status () {
+	echo "Status:"
+	sudo curl --unix-socket firecracker.socket http://localhost/
+}
+
+_config () {
+	echo "Machine config:"
+	sudo curl --unix-socket firecracker.socket http://localhost/machine-config
+}
+
 if [ -z $1 ]
 then
 	command_usage
@@ -113,6 +128,12 @@ then
 		stop)
 			_stop
 			;;
+		config)
+			_config
+			;;
+		status)
+			_status
+			;;		
 		*)
 	esac
 fi
