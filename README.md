@@ -1,6 +1,6 @@
 # Firefighter
 
-Firefighter is, for now, as set of scripts to download or build from source the [firecracker](https://github.com/firecracker-microvm/firecracker) and the [firectl](https://github.com/firecracker-microvm/firectl), download linux images and then eventually run a them as a microvm.
+Firefighter is, for now, as set of scripts to download or build from source the [firecracker](https://github.com/firecracker-microvm/firecracker) and the [firectl](https://github.com/firecracker-microvm/firectl), download linux images and then eventually run them as a microvm.
 
 For now, things are opinionated. But I'll fix it in the future and make everything configurable.
 
