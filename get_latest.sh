@@ -1,8 +1,22 @@
 #!/bin/bash
 
+FIRECRACKER_LATEST_RELEASE=$(curl -s https://api.github.com/repos/firecracker-microvm/firecracker/releases/latest \
+| grep "firecracker-v" \
+| grep "x86_64" \
+| grep "browser_download_url" \
+| cut -d : -f 2,3 \
+| tr -d \")
+
+JAILER_LATEST_RELEASE=$(curl -s https://api.github.com/repos/firecracker-microvm/firecracker/releases/latest \
+| grep "jailer-v" \
+| grep "x86_64" \
+| grep "browser_download_url" \
+| cut -d : -f 2,3 \
+| tr -d \")
+
 # firecracker + jailer
-[[ -e firecracker ]] || curl -Lo firecracker https://github.com/firecracker-microvm/firecracker/releases/download/v0.17.0/firecracker-v0.17.0
-[[ -e jailer ]] || curl -Lo jailer https://github.com/firecracker-microvm/firecracker/releases/download/v0.17.0/jailer-v0.17.0
+[[ -e firecracker ]] || curl -Lo firecracker $FIRECRACKER_LATEST_RELEASE
+[[ -e jailer ]] || curl -Lo jailer $JAILER_LATEST_RELEASE
 chmod +x firecracker
 chmod +x jailer
 
